@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const conn = require('../../config/conn');
 
-const livro = conn.define('livros', {
+const Livro = conn.define('livros', {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV1,
@@ -37,4 +37,4 @@ const livro = conn.define('livros', {
     },
 }, { freezeTableName: true });
 
-module.exports = livro;
+module.exports = Livro;
