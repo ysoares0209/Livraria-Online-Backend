@@ -27,6 +27,24 @@ module.exports = {
         await Livro.create(req.body);
         return resp.status(201).json('Registro incluído com sucesso');
     },
+
+    async Update (req, resp) {
+        const { id } = req.params;
+        const data = req.body;
+        await Livro.update({
+            titulo: data.titulo,
+            descricao: data.descricao,
+            preco: data.preco,
+            autor: data.autor,
+            publicacao: data.publicacao,
+            editora: data.editora
+        }, {
+            where: {
+                id: id
+            }
+        })
+        resp.send('ok');
+    },
     
     async Destroy (req, resp) {
         const { id } = req.params;
