@@ -18,9 +18,9 @@ module.exports = {
             }
         });
         if (!result) {
-            return resp.send(200).json('O registro procurado não foi encontrado');
+            return resp.status(200).json('O registro procurado não foi encontrado');
         }
-        return resp.send(result);
+        return resp.status(200).json(result);
     },
 
     async Insert (req, resp) {
@@ -43,7 +43,7 @@ module.exports = {
                 id: id
             }
         })
-        resp.send('ok');
+        resp.status(200).json(data);
     },
     
     async Destroy (req, resp) {
