@@ -2,7 +2,7 @@ const Livro = require('../models/Livro');
 
 module.exports = {
 
-    async FindAll (req, resp) {
+    async findAll (req, resp) {
         const result = await Livro.findAll();
         if (!result) {
             resp.status(200).json('Não foi encontrado nenhum registro');
@@ -10,8 +10,10 @@ module.exports = {
         return resp.status(200).json(result);
     },
 
-    async FindOne (req, resp) {
+    async findOne (req, resp) {
+        console.log(req.params);
         const { id } = req.params;
+        console.log(id);
         const result = await Livro.findAll({
             where: {
                 id: id
@@ -23,12 +25,12 @@ module.exports = {
         return resp.status(200).json(result);
     },
 
-    async Insert (req, resp) {
+    async insert (req, resp) {
         await Livro.create(req.body);
         return resp.status(201).json('Registro incluído com sucesso');
     },
 
-    async Update (req, resp) {
+    async update (req, resp) {
         const { id } = req.params;
         const data = req.body;
         await Livro.update({
@@ -46,7 +48,7 @@ module.exports = {
         resp.status(200).json(data);
     },
     
-    async Destroy (req, resp) {
+    async destroy (req, resp) {
         const { id } = req.params;
         await Livro.destroy({
             where: {
