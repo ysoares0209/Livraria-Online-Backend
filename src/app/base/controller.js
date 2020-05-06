@@ -1,5 +1,5 @@
-exports.findAll = model => async (req, resp) => {
-    await model.findAll()
+exports.findAll = service => async (req, resp) => {
+    await service.findAll()
         .then(result => {
             return resp.json(result);
         })
@@ -8,9 +8,9 @@ exports.findAll = model => async (req, resp) => {
         })
 },
 
-exports.findByPk = model => async (req, resp) => {
+exports.findByPk = service => async (req, resp) => {
     const { id } = req.params;
-    await model.findByPk(id)
+    await service.findByPk(id)
         .then(result => {
             return resp.json(result);
         })
@@ -19,8 +19,8 @@ exports.findByPk = model => async (req, resp) => {
         })
 },
 
-exports.create = model => async(req, resp) => {
-    await model.create(req.body)
+exports.create = service => async(req, resp) => {
+    await service.create(req.body)
         .then(() => {
             return resp.status(201).send();
         })
@@ -29,16 +29,9 @@ exports.create = model => async(req, resp) => {
         })
 },
 
-exports.update = model => async(req, resp) => {
+exports.update = service => async(req, resp) => {
     const { id } = req.params;
-    const body = req.body;
-    await model.update({
-        nome: body.nome,
-        titulo: body.titulo,
-        descricao: body.descricao,
-        preco: body.preco,
-        publicacao: body.publicacao
-    }, 
+    await service.update(req.body, 
     {
         where: {
             id: id
@@ -52,9 +45,9 @@ exports.update = model => async(req, resp) => {
     }) 
 },
 
-exports.destroy = model => async (req, resp) => {
+exports.destroy = service => async (req, resp) => {
     const { id } = req.params;
-    await model.destroy({
+    await service.destroy({
         where: {
             id: id
         }
