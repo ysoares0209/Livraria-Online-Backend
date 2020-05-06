@@ -15,7 +15,10 @@ app.listen(port, ()=> {
         .authenticate()
         .then(() => {
             console.log('Connection has been established successfully.');
-            require('./app/routes')(app);
+            require('./app/livros/routes')(app);
+            require('./app/autor/routes')(app);
+            require('./app/editora/routes')(app);
+            require('./app/genero/routes')(app);
         })
         .catch(err => {
             console.error('Unable to connect to database: ', err);

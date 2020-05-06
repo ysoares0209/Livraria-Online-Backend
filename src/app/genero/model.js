@@ -1,31 +1,17 @@
 const { DataTypes } = require('sequelize');
 const conn = require('../../config/conn');
+const Livro = require('../livros/model');
 
-const Livro = conn.define('livros', {
+const Genero = conn.define('genero', {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV1,
         primaryKey: true,
         allowNull: false
     },
-    titulo: {
+    nome: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    descricao: {
-        type: DataTypes.STRING
-    },
-    preco: {
-        type: DataTypes.FLOAT
-    },
-    autor: {
-        type: DataTypes.STRING
-    },
-    publicacao: {
-        type: DataTypes.DATE
-    },
-    editora: {
-        type: DataTypes.STRING
     },
     createdAt: {
         type: DataTypes.DATE,
@@ -34,7 +20,7 @@ const Livro = conn.define('livros', {
     updatedAt: {
         type: DataTypes.DATE,
         allowNull: false
-    },
-}, { freezeTableName: true });
+    }
+}, { tableName: "genero" });
 
-module.exports = Livro;
+module.exports = Genero;
