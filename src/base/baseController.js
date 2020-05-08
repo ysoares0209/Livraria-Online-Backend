@@ -21,8 +21,8 @@ exports.findByPk = service => async (req, resp) => {
 
 exports.create = service => async(req, resp) => {
     await service.create(req.body)
-        .then(() => {
-            return resp.status(201).send();
+        .then(result => {
+            return resp.status(201).send(result);
         })
         .catch(err => {
             return resp.send(err); 
@@ -31,31 +31,20 @@ exports.create = service => async(req, resp) => {
 
 exports.update = service => async(req, resp) => {
     const { id } = req.params;
-    await service.update(req.body, 
-    {
-        where: {
-            id: id
-        }
-    })
-    .then(() => {
-        resp.status(200).send();
-    })
-    .catch(err => {
-        resp.status(500).send(err);
-    }) 
+    await service.update(req.body, id)
+        .then(() => {
+            return resp.status(204).send();
+        })
+        .catch(err => {
+            return resp.status(500).send(err);
+        })
 },
 
 exports.destroy = service => async (req, resp) => {
     const { id } = req.params;
-    await service.destroy({
-        where: {
-            id: id
-        }
-    })
-    .then( () => {
-        return resp.status(204).send();
-    })
-    .catch( err => {
-        return resp.send(err);
-    })
+    let result = await service.destroy(id);
+    if (result) {
+       return resp.status(204).send();
+    }
+    return resp.status(500).send();
 }

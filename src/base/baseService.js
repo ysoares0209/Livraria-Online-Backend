@@ -1,25 +1,20 @@
-const uuidv1 = require('uuid/v1');
-
 class baseService {
 
     constructor(model) {
         this.path = '../' + model + '/model';
         this.model = require(this.path);
-        this.includeValues = '';
     }
-
     async findAll() {
-            let list = await this.model.findAll({include:[{association:this.includeValues}]}
-            );
+            let list = await this.model.findAll({include: [{all: true, nested: true}]});
             return list;
     };
 
-    async findOne(id) {
+    async findByPk(id) {
         return this.model.findByPk(id)
     };
 
     async create(data) {
-        data.id = uuidv1();
+        //data.id = uuidv1();
         return this.model.create(data)
     };
 
@@ -35,14 +30,14 @@ class baseService {
     async destroy(id) {
         if (id) {
             try {
-                this.modelObject = await findOne(id);
-                this.modelObject.destroy();
-                return 'OK';
-            } catch (err) {
+                this.model.destroy({where: {id: id}})
+                return true;
+            }
+            catch(err) {
                 return false;
             }
         }
-    };
+    }
 }
 
 module.exports = baseService;

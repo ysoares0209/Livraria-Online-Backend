@@ -1,9 +1,8 @@
-const {sequelize,  DataTypes } = require('sequelize');
-const conn = require('../../config/conn');
+const { DataTypes } = require('sequelize');
+const conn = require('../config/conn');
 const Livro = require('../livros/model');
 
-
-const Autor = conn.define('autor', {
+const Genero = conn.define('genero', {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV1,
@@ -22,7 +21,6 @@ const Autor = conn.define('autor', {
         type: DataTypes.DATE,
         allowNull: false
     }
-}, { tableName: "autor" });
+}, { tableName: "genero" });
 
-module.exports = Autor;
-
+module.exports = Genero;

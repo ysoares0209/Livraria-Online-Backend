@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const conn = require('../../config/conn');
+const conn = require('../config/conn');
 const Autor = require('../autor/model');
 const Editora = require('../editora/model');
 const Genero = require('../genero/model');
@@ -31,7 +31,7 @@ const Livro = conn.define('livros', {
         type: DataTypes.FLOAT
     },
     publicacao: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING
     },
     createdAt: {
         type: DataTypes.DATE,

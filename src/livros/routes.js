@@ -1,9 +1,9 @@
-const controller = require('../base/controller');
-const Service = require('../base/base_service')
+const controller = require('../base/baseController');
+const Service = require('../base/baseService')
 
 module.exports = app => {
     const service = new Service('livros');
-    service.includeValues='autor';
+    //service.includeValues=['autor', 'editora', 'genero'];
     
     app.get('/livros', controller.findAll(service));
     app.get('/livros/:id', controller.findByPk(service));

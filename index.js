@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const sequelize = require('./config/conn');
+const sequelize = require('./src/config/conn');
 const port = 3000;
 const app = express();
 
@@ -15,10 +15,10 @@ app.listen(port, ()=> {
         .authenticate()
         .then(() => {
             console.log('Connection has been established successfully.');
-            require('./app/livros/routes')(app);
-            require('./app/autor/routes')(app);
-            require('./app/editora/routes')(app);
-            require('./app/genero/routes')(app);
+            require('./src/livros/routes')(app);
+            require('./src/autor/routes')(app);
+            require('./src/editora/routes')(app);
+            require('./src/genero/routes')(app);
         })
         .catch(err => {
             console.error('Unable to connect to database: ', err);
