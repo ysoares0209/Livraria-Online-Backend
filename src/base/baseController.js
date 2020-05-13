@@ -1,16 +1,17 @@
 exports.findAll = service => async (req, resp) => {
-    let page=1;
-    if (req.query && req.query.page) { 
-        page=parseInt(req.query.page, 10);
-    } 
-    console.log(page);
-    await service.findAll(page)
-        .then(result => {
-            return resp.json(result);
-        })
-        .catch(err => {
-            return resp.send(err);
-        })
+    try {
+        let page=1;
+        if (req.query && req.query.page) { 
+            page=parseInt(req.query.page, 10);
+        } 
+        
+        let data = await service.findAll(page);
+        if (data) {
+            return resp.json(data);
+        }
+    } catch (err) {
+        return resp.json(err);
+    }
 },
 
 exports.findByPk = service => async (req, resp) => {
