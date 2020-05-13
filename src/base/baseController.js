@@ -15,42 +15,40 @@ exports.findAll = service => async (req, resp) => {
 },
 
 exports.findByPk = service => async (req, resp) => {
-    const { id } = req.params;
-    await service.findByPk(id)
-        .then(result => {
-            return resp.json(result);
-        })
-        .catch(err => {
-            return resp.send(err);
-        })
+    try {
+        const { id } = req.params;
+        let data = await service.findByPk(id);
+        if (data) {
+            return resp.json(data);
+        }
+    } catch (err) { return resp.json(err); }
 },
 
 exports.create = service => async(req, resp) => {
-    await service.create(req.body)
-        .then(result => {
-            return resp.status(201).send(result);
-        })
-        .catch(err => {
-            return resp.send(err); 
-        })
+    try {
+        let data = await service.create(req.body);
+        if (data) {
+            return resp.json(data);
+        }
+    } catch (err) { return resp.json(err); }
 },
 
 exports.update = service => async(req, resp) => {
-    const { id } = req.params;
-    await service.update(req.body, id)
-        .then(() => {
+    try {
+        const { id } = req.params;
+        let data = await service.update(req.body, id)
+        if (data) {
             return resp.status(204).send();
-        })
-        .catch(err => {
-            return resp.status(500).send(err);
-        })
+        }
+    } catch (err) { return resp.json(err); }
 },
 
 exports.destroy = service => async (req, resp) => {
-    const { id } = req.params;
-    let result = await service.destroy(id);
-    if (result) {
-       return resp.status(204).send();
-    }
-    return resp.status(500).send();
+    try {
+        const { id } = req.params;
+        let result = await service.destroy(id);
+        if (result) {
+            return resp.status(204).send();
+        }
+    } catch (err) { return resp.status(500).send(); }
 }
