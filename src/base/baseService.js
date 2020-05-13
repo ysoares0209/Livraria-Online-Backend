@@ -3,9 +3,13 @@ class baseService {
     constructor(model) {
         this.path = '../' + model + '/model';
         this.model = require(this.path);
+        this.ordering = 'nome';
     }
 
     async findAll(page) {
+        if (this.model.name === 'livros') {
+            this.ordering = 'titulo'
+        }
         let limit = 5;
         let offset = 0;
         let count = await this.model.count();
@@ -15,7 +19,7 @@ class baseService {
                     include: [{all: true, nested: true}],
                     limit: limit,
                     offset: offset,
-                    order: ['nome']
+                    order: [this.ordering]
                 })
     };
 
