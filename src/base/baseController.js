@@ -1,6 +1,10 @@
 exports.findAll = service => async (req, resp) => {
-    console.log(req);
-    await service.findAll(1)
+    let page=1;
+    if (req.query && req.query.page) { 
+        page=parseInt(req.query.page, 10);
+    } 
+    console.log(page);
+    await service.findAll(page)
         .then(result => {
             return resp.json(result);
         })
