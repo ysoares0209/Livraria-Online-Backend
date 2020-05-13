@@ -4,9 +4,22 @@ class baseService {
         this.path = '../' + model + '/model';
         this.model = require(this.path);
     }
-    async findAll() {
-            let list = await this.model.findAll({include: [{all: true, nested: true}]});
-            return list;
+
+    async findAll(page) {
+        let limit = 5;
+        let offset = 0;
+        await this.model.findAndCountAll()
+            .then(query => {
+                let pages = Math.ceil(query.count / limit);
+                offset = limit * (page - 1);
+                this.model.findAll({
+                    include: [{all: true, nested: true}],
+                    limit: limit,
+                    offset: offset
+                }).then(result => {
+                        //console.log(result);
+                    })
+            })
     };
 
     async findByPk(id) {
@@ -14,7 +27,6 @@ class baseService {
     };
 
     async create(data) {
-        //data.id = uuidv1();
         return this.model.create(data)
     };
 

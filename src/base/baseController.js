@@ -1,5 +1,6 @@
 exports.findAll = service => async (req, resp) => {
-    await service.findAll()
+    console.log(req);
+    await service.findAll(1)
         .then(result => {
             return resp.json(result);
         })
