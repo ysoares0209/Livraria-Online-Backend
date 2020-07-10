@@ -13,7 +13,7 @@ class baseService {
         let limit = 5;
         let offset = 0;
         let count = await this.model.count();
-        let pages = Math.ceil(count / limit);
+        // let pages = Math.ceil(count / limit);
         offset = limit * (page - 1);
         return await this.model.findAll({
                     include: [{all: true, nested: true}],
