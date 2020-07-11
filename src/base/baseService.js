@@ -13,14 +13,16 @@ class baseService {
         let limit = 5;
         let offset = 0;
         let count = await this.model.count();
-        // let pages = Math.ceil(count / limit);
+        let pages = Math.ceil(count / limit);
         offset = limit * (page - 1);
-        return await this.model.findAll({
-                    include: [{all: true, nested: true}],
-                    limit: limit,
-                    offset: offset,
-                    order: [this.ordering]
-                })
+        let result = await this.model.findAll({
+            include: [{all: true, nested: true}],
+            limit: limit,
+            offset: offset,
+            order: [this.ordering]
+        })
+        return { pages, count, result }
+        
     };
 
     async findByPk(id) {
