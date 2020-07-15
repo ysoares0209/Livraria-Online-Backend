@@ -10,7 +10,7 @@ class baseService {
         if (this.model.name === 'livros') {
             this.ordering = 'titulo'
         }
-        let limit = 5;
+        let limit = 25;
         let offset = 0;
         let count = await this.model.count();
         let pages = Math.ceil(count / limit);
