@@ -8,7 +8,9 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    "Access-Control-Allow-Origin": "*"
+}));
 
 app.listen(port, ()=> {
     console.log(`Servidor rodando na porta ${port}`);
