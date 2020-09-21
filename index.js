@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors')
 const sequelize = require('./src/config/conn');
 const port = 3000;
 const app = express();
@@ -8,11 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({
-    "Access-Control-Allow-Origin": "*"
-}));
 
-app.listen(port, ()=> {
+app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 
     sequelize
